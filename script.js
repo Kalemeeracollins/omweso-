@@ -1,21 +1,40 @@
 const board = document.querySelector('.board');
 const status = document.getElementById('status');
 const restartBtn = document.getElementById('restart');
+const moveSound = new Audio('move.mp3'); // Sound effect for moves
 
 let pits = new Array(32).fill(4); // 32 pits with 4 seeds each
 let currentPlayer = 'Player'; // Start with the player
 
+// Path to the seed image
+const seedImagePath = 'seed.png'; // Replace 'seed.png' with the path to your seed image
+
 // Generate the board dynamically
 function createBoard() {
   board.innerHTML = '';
-  pits.forEach((seeds, index) => {
+  pits.forEach((seedCount, index) => {
     const pit = document.createElement('div');
     pit.classList.add('pit');
-    pit.textContent = seeds;
     pit.dataset.index = index;
+
+    // Add seed images
+    for (let i = 0; i < seedCount; i++) {
+      const seedImg = document.createElement('img');
+      seedImg.src = seedImagePath;
+      seedImg.alt = 'Seed';
+      seedImg.classList.add('seed-image');
+      pit.appendChild(seedImg);
+    }
+
     pit.addEventListener('click', () => handlePlayerMove(index));
     board.appendChild(pit);
   });
+}
+
+// Play move sound
+function playSound() {
+  moveSound.currentTime = 0;
+  moveSound.play();
 }
 
 // Handle Player's Move
@@ -46,6 +65,7 @@ function computerMove() {
 
 // Play a move from a selected pit
 function playMove(pitIndex) {
+  playSound();
   let seeds = pits[pitIndex];
   pits[pitIndex] = 0;
   let currentIndex = pitIndex;

@@ -31,24 +31,31 @@ body {
   }
   
   .pit {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: radial-gradient(circle, #f9f4e1 60%, #d6b88f 100%);
     border: 3px solid #8b5a2b;
     border-radius: 50%;
     display: flex;
+    flex-wrap: wrap; /* Allows seeds to wrap neatly */
     justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    font-weight: bold;
+    align-content: center;
+    position: relative;
     cursor: pointer;
     transition: transform 0.2s ease, background-color 0.2s;
+  }
+  
+  .seed-image {
+    width: 20px;
+    height: 20px;
+    margin: 2px; /* Space between seeds */
+    object-fit: cover;
   }
   
   .pit:hover {
     transform: scale(1.1);
     background-color: #e7d8c6;
-  }
+  }  
   
   .controls {
     margin-top: 20px;
