@@ -1,83 +1,152 @@
 body {
-    font-family: 'Times New Roman', serif;
-    background-color: #d6b88f; /* Light wooden background */
-    text-align: center;
-    margin: 0;
-    padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #5d4037;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px #d6b88f;
+}
+
+.label {
+  font-size: 1.8rem;
+  color: #4e342e;
+  margin: 15px 0;
+  text-transform: uppercase;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr); /* 8 pits per row */
+  gap: 15px;
+  background: #84563c; /* Wooden board texture */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.pit {
+  width: 10vw; /* Dynamic size for pits */
+  height: 10vw;
+  max-width: 80px;
+  max-height: 80px;
+  min-width: 60px;
+  min-height: 60px;
+  background: radial-gradient(circle, #f8e1c4, #c8a97e);
+  border: 2px solid #84563c;
+  border-radius: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.pit:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.seed-image {
+  width: 20%;
+  height: auto;
+  margin: 1%;
+  object-fit: cover;
+}
+
+#status {
+  font-size: 1.5rem;
+  color: #6d4c41;
+  margin: 15px 0;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+button {
+  font-size: 1.5rem;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(to right, #6d4c41, #8d6e63);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(to right, #8d6e63, #a1887f);
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .board {
+    grid-template-columns: repeat(4, 1fr);
   }
-  
-  .game-container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background: #f4e1c9; /* Wooden board surface */
-    border: 10px solid #8b5a2b; /* Dark wooden border */
-    border-radius: 15px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  .pit {
+    width: 12vw;
+    height: 12vw;
   }
-  
+}
+
+@media (max-width: 480px) {
   h1 {
     font-size: 2rem;
-    color: #84563c;
   }
-  
-  .board {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 10px;
-    background: #8b5a2b; /* Dark wooden base */
-    padding: 20px;
-    border-radius: 10px;
+  .label {
+    font-size: 1.4rem;
   }
-  
-  .pit {
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, #f9f4e1 60%, #d6b88f 100%);
-    border: 3px solid #8b5a2b;
-    border-radius: 50%;
-    display: flex;
-    flex-wrap: wrap; /* Allows seeds to wrap neatly */
-    justify-content: center;
-    align-content: center;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s;
-  }
-  
-  .seed-image {
-    width: 20px;
-    height: 20px;
-    margin: 2px; /* Space between seeds */
-    object-fit: cover;
-  }
-  
-  .pit:hover {
-    transform: scale(1.1);
-    background-color: #e7d8c6;
-  }  
-  
-  .controls {
-    margin-top: 20px;
-  }
-  
-  #status {
-    font-size: 1.2rem;
-    color: #84563c;
-    margin: 10px 0;
-  }
-  
   button {
-    background: #84563c;
-    color: #f9f4e1;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    padding: 8px 20px;
   }
-  
-  button:hover {
-    background: #6c4323;
+}
+.notification {
+  position: fixed;
+  top: 10px;
+  left: 85%;
+  transform: translateX(-50%);
+  background-color: #e74c3c; /* Error red */
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 1000;
+  display: none; /* Initially hidden */
+  animation: fadeInOut 3s ease-in-out;
+}
+
+/* Fade-in and fade-out animation */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
   }
-  
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
